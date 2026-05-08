@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Nasly — Feliz Cumpleaños</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Caveat:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rojo: #C0392B;
+    --rojo-suave: #E74C3C;
+    --mostaza: #D4A017;
+    --oro: #F0C040;
+    --tinta: #1a0a00;
+    --papel: #faf6ee;
+    --papel-oscuro: #f0e8d8;
+    --linea: #c8b89a;
+    --sombra: rgba(80, 30, 10, 0.18);
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: #1a0a00;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: #0e0500;
+    position: relative;
+  }
+
+  .fondo-vivo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .fondo-vivo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 50% at 20% 30%, rgba(192,57,43,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 80% 70%, rgba(212,160,23,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(180,40,20,0.1) 0%, transparent 80%);
+    animation: pulso 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulso {
+    0% { opacity: 0.7; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.06); }
+  }
+
+  .particulas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .p {
+    position: absolute;
+    border-radius: 50%;
+    animation: flotar linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes flotar {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  }
+
+  .escena {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .encabezado {
+    text-align: center;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: bajar 1.2s cubic-bezier(.22,1,.36,1) 0.3s forwards;
+  }
+
+  @keyframes bajar {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .nombre-grande {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--oro);
+    text-shadow: 
+      0 0 60px rgba(212,160,23,0.5),
+      0 2px 0 rgba(0,0,0,0.5);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .subtitulo-encabezado {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: rgba(250,246,238,0.55);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  .hoja-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    opacity: 0;
+    animation: subir 1.4s cubic-bezier(.22,1,.36,1) 0.7s forwards;
+    margin-bottom: 4rem;
+  }
+
+  @keyframes subir {
+    from { opacity: 0; transform: translateY(40px) rotate(-0.5deg); }
+    to { opacity: 1; transform: translateY(0) rotate(-0.5deg); }
+  }
+
+  .hoja-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: 5%;
+    right: 5%;
+    height: 40px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
+    filter: blur(8px);
+    z-index: -1;
+  }
+
+  .cinta {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 28px;
+    background: var(--rojo);
+    z-index: 10;
+    border-radius: 2px;
+    box-shadow: 0 3px 12px rgba(192,57,43,0.6);
+  }
+  .cinta::before, .cinta::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+  }
+  .cinta::before {
+    left: -10px;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-right: 10px solid var(--rojo);
+  }
+  .cinta::after {
+    right: -10px;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 10px solid var(--rojo);
+  }
+
+  .hoja::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 40px 40px;
+    border-color: transparent transparent var(--papel-oscuro) transparent;
+    filter: drop-shadow(-3px -3px 4px rgba(0,0,0,0.15));
+  }
+
+  .hoja {
+    position: relative;
+    background: var(--papel);
+    border-radius: 3px 3px 3px 3px;
+    padding: 5rem 3.5rem 4rem 5rem;
+    box-shadow:
+      inset 0 0 0 1px rgba(0,0,0,0.06),
+      0 0 0 1px rgba(0,0,0,0.08),
+      4px 6px 30px rgba(0,0,0,0.4);
+    overflow: hidden;
+  }
+
+  .hoja::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 3.2rem;
+    bottom: 0;
+    width: 2px;
+    background: rgba(192,57,43,0.35);
+  }
+
+  .lineas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent calc(2rem - 1px),
+      var(--linea) calc(2rem - 1px),
+      var(--linea) 2rem
+    );
+    background-position: 0 4.5rem;
+    opacity: 0.45;
+  }
+
+  .fecha-hoja {
+    position: absolute;
+    top: 1.8rem;
+    right: 2.5rem;
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    color: rgba(80,40,10,0.45);
+    font-weight: 500;
+  }
+
+  .contenido {
+    position: relative;
+    z-index: 1;
+  }
+
+  .saludo {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    color: var(--rojo);
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .parrafo {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.18rem);
+    color: var(--tinta);
+    line-height: 2rem;
+    margin-bottom: 0rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .parrafo.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .parrafo em {
+    font-style: italic;
+    color: #6b1a10;
+  }
+
+  .parrafo strong {
+    font-weight: 700;
+    color: #2a1000;
+  }
+
+  .sep {
+    margin: 1.8rem 0 1.4rem;
+    text-align: center;
+    color: var(--rojo);
+    font-size: 1.1rem;
+    opacity: 0.5;
+    letter-spacing: 0.5em;
+  }
+
+  .firma-bloque {
+    margin-top: 2.5rem;
+    text-align: right;
+    opacity: 0;
+    animation: aparecer 1s ease 2.5s forwards;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .firma-texto {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    color: rgba(80,30,10,0.55);
+    font-weight: 500;
+  }
+
+  .firma-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-style: italic;
+    color: var(--rojo);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-top: 0.2rem;
+  }
+
+  .corazon-final {
+    display: block;
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 2.2rem;
+    animation: latir 1.4s ease-in-out infinite, aparecer 1s ease 3s forwards;
+    opacity: 0;
+  }
+
+  @keyframes latir {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+  }
+
+  .firma-svg-wrapper {
+    margin-top: 0.6rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .firma-svg {
+    width: clamp(200px, 55vw, 320px);
+    height: auto;
+    overflow: visible;
+  }
+
+  .firma-svg path, .firma-svg circle {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: trazar 2.8s cubic-bezier(.4,0,.2,1) 3s forwards;
+  }
+
+  .firma-svg path:nth-child(1)  { animation-delay: 3.0s; }
+  .firma-svg path:nth-child(2)  { animation-delay: 3.15s; }
+  .firma-svg path:nth-child(3)  { animation-delay: 3.28s; }
+  .firma-svg path:nth-child(4)  { animation-delay: 3.4s; }
+  .firma-svg path:nth-child(5)  { animation-delay: 3.55s; }
+  .firma-svg path:nth-child(6)  { animation-delay: 3.7s; }
+  .firma-svg path:nth-child(7)  { animation-delay: 3.85s; }
+  .firma-svg path:nth-child(8)  { animation-delay: 4.0s; }
+  .firma-svg path:nth-child(9)  { animation-delay: 4.15s; }
+  .firma-svg path:nth-child(10) { animation-delay: 4.3s; }
+  .firma-svg path:nth-child(11) { animation-delay: 4.45s; }
+  .firma-svg path:nth-child(12) { animation-delay: 4.6s; }
+  .firma-svg path:nth-child(13) { animation-delay: 4.72s; }
+  .firma-svg path:nth-child(14) { animation-delay: 4.82s; }
+  .firma-svg circle             { animation-delay: 4.9s; stroke-dasharray: 20; stroke-dashoffset: 20; }
+  .firma-svg path:last-child    { animation-delay: 5.0s; }
+
+  @keyframes trazar {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .mancha-tinta {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(192,57,43,0.07);
+    pointer-events: none;
+  }
+
+  /* ============================
+     SECCIÓN DE CUMPLEAÑOS
+  ============================= */
+
+  .divisor-cumple {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin: 2rem 0 3.5rem;
+    opacity: 0;
+    animation: aparecer 1.2s ease 1.5s forwards;
+  }
+
+  .divisor-cumple::before,
+  .divisor-cumple::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212,160,23,0.5), transparent);
+  }
+
+  .divisor-cumple span {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: var(--oro);
+    opacity: 0.85;
+    white-space: nowrap;
+  }
+
+  .cumple-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    opacity: 0;
+    animation: subir-cumple 1.4s cubic-bezier(.22,1,.36,1) 1.8s forwards;
+    margin-bottom: 3rem;
+  }
+
+  @keyframes subir-cumple {
+    from { opacity: 0; transform: translateY(40px) rotate(0.3deg); }
+    to { opacity: 1; transform: translateY(0) rotate(0.3deg); }
+  }
+
+  .cumple-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: 5%;
+    right: 5%;
+    height: 40px;
+    background: radial-gradient(ellipse, rgba(192,57,43,0.3) 0%, transparent 70%);
+    filter: blur(8px);
+    z-index: -1;
+  }
+
+  .cinta-dorada {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 28px;
+    background: var(--oro);
+    z-index: 10;
+    border-radius: 2px;
+    box-shadow: 0 3px 16px rgba(240,192,64,0.7);
+  }
+  .cinta-dorada::before, .cinta-dorada::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+  }
+  .cinta-dorada::before {
+    left: -10px;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-right: 10px solid var(--oro);
+  }
+  .cinta-dorada::after {
+    right: -10px;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 10px solid var(--oro);
+  }
+
+  .hoja-cumple {
+    position: relative;
+    background: linear-gradient(160deg, #fdf8f0 0%, #faf3e0 100%);
+    border-radius: 3px;
+    padding: 5rem 3.5rem 4rem 5rem;
+    box-shadow:
+      inset 0 0 0 1px rgba(212,160,23,0.2),
+      0 0 0 1px rgba(0,0,0,0.06),
+      4px 6px 30px rgba(0,0,0,0.4);
+    overflow: hidden;
+  }
+
+  .hoja-cumple::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 3.2rem;
+    bottom: 0;
+    width: 2px;
+    background: rgba(212,160,23,0.4);
+  }
+
+  .hoja-cumple::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 40px 40px;
+    border-color: transparent transparent #ede0c4 transparent;
+    filter: drop-shadow(-3px -3px 4px rgba(0,0,0,0.12));
+  }
+
+  .lineas-cumple {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent calc(2rem - 1px),
+      rgba(212,160,23,0.2) calc(2rem - 1px),
+      rgba(212,160,23,0.2) 2rem
+    );
+    background-position: 0 4.5rem;
+  }
+
+  .fecha-hoja-cumple {
+    position: absolute;
+    top: 1.8rem;
+    right: 2.5rem;
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    color: rgba(120,80,10,0.5);
+    font-weight: 500;
+  }
+
+  .contenido-cumple {
+    position: relative;
+    z-index: 1;
+  }
+
+  .saludo-cumple {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.8rem, 5.5vw, 2.6rem);
+    color: #9a6b00;
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .parrafo-cumple {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.18rem);
+    color: #1a0a00;
+    line-height: 2rem;
+    margin-bottom: 0;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .parrafo-cumple.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .parrafo-cumple em {
+    font-style: italic;
+    color: #7a4f00;
+  }
+
+  .parrafo-cumple strong {
+    font-weight: 700;
+    color: #2a1400;
+  }
+
+  .sep-oro {
+    margin: 1.8rem 0 1.4rem;
+    text-align: center;
+    color: var(--oro);
+    font-size: 1.1rem;
+    opacity: 0.6;
+    letter-spacing: 0.5em;
+  }
+
+  .firma-bloque-cumple {
+    margin-top: 2.5rem;
+    text-align: right;
+    opacity: 0;
+    animation: aparecer 1s ease 4s forwards;
+  }
+
+  .firma-texto-cumple {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    color: rgba(120,60,10,0.55);
+    font-weight: 500;
+  }
+
+  .firma-nombre-cumple {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-style: italic;
+    color: #9a6b00;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-top: 0.2rem;
+  }
+
+  .firma-svg-cumple-wrapper {
+    margin-top: 0.6rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .firma-svg-cumple {
+    width: clamp(200px, 55vw, 320px);
+    height: auto;
+    overflow: visible;
+  }
+
+  .firma-svg-cumple path, .firma-svg-cumple circle {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: trazar 2.8s cubic-bezier(.4,0,.2,1) 4.2s forwards;
+  }
+
+  .firma-svg-cumple path:nth-child(1)  { animation-delay: 4.2s; }
+  .firma-svg-cumple path:nth-child(2)  { animation-delay: 4.35s; }
+  .firma-svg-cumple path:nth-child(3)  { animation-delay: 4.48s; }
+  .firma-svg-cumple path:nth-child(4)  { animation-delay: 4.6s; }
+  .firma-svg-cumple path:nth-child(5)  { animation-delay: 4.75s; }
+  .firma-svg-cumple path:nth-child(6)  { animation-delay: 4.9s; }
+  .firma-svg-cumple path:nth-child(7)  { animation-delay: 5.05s; }
+  .firma-svg-cumple path:nth-child(8)  { animation-delay: 5.2s; }
+  .firma-svg-cumple path:nth-child(9)  { animation-delay: 5.35s; }
+  .firma-svg-cumple path:nth-child(10) { animation-delay: 5.5s; }
+  .firma-svg-cumple path:nth-child(11) { animation-delay: 5.65s; }
+  .firma-svg-cumple path:nth-child(12) { animation-delay: 5.8s; }
+  .firma-svg-cumple path:nth-child(13) { animation-delay: 5.92s; }
+  .firma-svg-cumple path:nth-child(14) { animation-delay: 6.02s; }
+  .firma-svg-cumple circle             { animation-delay: 6.1s; stroke-dasharray: 20; stroke-dashoffset: 20; }
+  .firma-svg-cumple path:last-child    { animation-delay: 6.2s; }
+
+  /* COPYRIGHT */
+  .copyright {
+    margin-top: 5rem;
+    text-align: center;
+    opacity: 0;
+    animation: aparecer 1s ease 5s forwards;
+  }
+
+  .copyright-linea {
+    width: 60px;
+    height: 1px;
+    background: rgba(212,160,23,0.35);
+    margin: 0 auto 1.2rem;
+  }
+
+  .copyright-texto {
+    font-family: 'Caveat', cursive;
+    font-size: 0.88rem;
+    color: rgba(250,246,238,0.3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .copyright-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(240,192,64,0.35);
+    margin-top: 0.35rem;
+    letter-spacing: 0.05em;
+  }
+
+  .corazon-final-cumple {
+    display: block;
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 2.2rem;
+    opacity: 0;
+    animation: latir 1.4s ease-in-out infinite, aparecer 1s ease 4.5s forwards;
+  }
+
+  @media (max-width: 600px) {
+    .hoja {
+      padding: 4.5rem 2rem 3rem 3rem;
+    }
+    .hoja::before {
+      left: 2rem;
+    }
+    .hoja-cumple {
+      padding: 4.5rem 2rem 3rem 3rem;
+    }
+    .hoja-cumple::before {
+      left: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="fondo-vivo"></div>
+<div class="particulas" id="particulas"></div>
+
+<div class="escena">
+
+  <!-- ======= CARTA ORIGINAL ======= -->
+  <div class="encabezado">
+    <div class="nombre-grande">Nasly</div>
+    <div class="subtitulo-encabezado">una carta que quería existir desde hace tiempo</div>
+  </div>
+
+  <div class="hoja-wrapper">
+    <div class="cinta"></div>
+
+    <div class="hoja">
+      <div class="lineas"></div>
+      <div class="fecha-hoja">2026 ♥</div>
+
+      <div class="mancha-tinta" style="width:120px;height:80px;top:-20px;right:60px;transform:rotate(-15deg);"></div>
+      <div class="mancha-tinta" style="width:60px;height:40px;bottom:80px;left:40px;transform:rotate(10deg);"></div>
+
+      <div class="contenido">
+        <div class="saludo">Nasly,</div>
+
+        <p class="parrafo">
+          Hay personas que pasan por tu vida de puntillas, como si tuvieran miedo de dejar huella. Y hay otras que llegan sin avisar y se instalan en un lugar que tú ni siquiera sabías que existía. Tú eres de esas.
+        </p>
+
+        <div class="sep">· · ·</div>
+
+        <p class="parrafo">
+          No sé exactamente cómo explicarte lo que significa para mí que estés en mi vida, porque las palabras siempre se quedan cortas cuando uno intenta describir algo que se <em>siente</em> antes de que se piensa. Pero lo voy a intentar.
+        </p>
+
+        <div class="sep">· · ·</div>
+
+        <p class="parrafo">
+          Tú eres la única persona por la cual yo me desvivo. La única. No como un recurso retórico, no como exageración romántica — sino como la verdad más limpia que puedo decir. Hay algo en ti que hace que yo funcione diferente. Como si el mundo se moviera de una manera distinta cuando estás cerca, o incluso cuando solo pienso en ti.
+        </p>
+
+        <div class="sep">· · ·</div>
+
+        <p class="parrafo">
+          Y sé que a veces mi intensidad te sorprende. Sé que a veces no entiendes por qué reacciono como reacciono, por qué me aloco, por qué me desvivo de maneras que a veces ni yo mismo comprendo del todo. Pero quiero que sepas algo importante: <strong>no es porque yo quiera.</strong>
+        </p>
+
+        <p class="parrafo">
+          No es un cálculo. No es un performance. Es que tú sacas algo en mí que simplemente no sé controlar, y no porque sea debilidad — sino porque lo que siento es <em>genuino</em>. Y las cosas genuinas no piden permiso para existir.
+        </p>
+
+        <div class="sep">· · ·</div>
+
+        <p class="parrafo">
+          Eres importante. No de esa manera vaga en que uno dice "eres importante para mí" como si fuera una frase hecha. Eres importante como lo es el aire para respirar sin darse cuenta. Como lo es la luz para ver. Como lo es ese silencio que uno busca cuando el mundo se pone demasiado ruidoso.
+        </p>
+
+        <div class="sep">· · ·</div>
+
+        <p class="parrafo">
+          No te escribo esto para que sientas una carga. Te lo escribo para que sepas — de una vez y para siempre — que hay alguien que te ve. Que te ve de verdad. Que nota cada cosa tuya, que valora tu presencia de maneras que quizás nunca te había dicho en voz alta.
+        </p>
+
+        <p class="parrafo">
+          <strong>Gracias por existir. Gracias por estar. Gracias por ser, exactamente, lo que eres.</strong>
+        </p>
+
+        <div class="firma-bloque">
+          <div class="firma-texto">con todo lo que soy,</div>
+          <div class="firma-nombre">el que se aloca por ti</div>
+          <div class="firma-svg-wrapper">
+            <svg class="firma-svg" viewBox="0 0 310 95" xmlns="http://www.w3.org/2000/svg" aria-label="Edward D.">
+              <path d="M 10,16 C 10,16 9,17 9,24 L 9,68 C 9,73 10,74 13,74" stroke="#6b1a10" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 9,17 C 14,15 28,15 43,16" stroke="#6b1a10" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M 9,46 C 16,44 30,44 38,45" stroke="#6b1a10" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M 9,73 C 16,72 32,72 45,73" stroke="#6b1a10" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M 80,13 C 80,24 80,38 80,55 C 80,65 77,75 69,75 C 61,76 54,68 54,58 C 54,48 58,41 65,40 C 72,38 79,43 80,52" stroke="#6b1a10" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 80,55 C 80,63 80,70 80,77" stroke="#6b1a10" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M 91,42 C 92,52 94,62 96,69 C 98,76 100,75 102,69 C 104,63 106,53 108,46 C 110,53 112,63 114,69 C 116,76 118,75 120,69 C 122,62 125,48 126,42" stroke="#6b1a10" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 143,52 C 139,44 131,43 129,50 C 127,57 129,66 133,71 C 137,76 144,73 145,66 L 146,48 C 146,56 146,68 147,76" stroke="#6b1a10" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 154,52 L 153,76" stroke="#6b1a10" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M 153,57 C 156,48 163,46 170,47" stroke="#6b1a10" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M 204,15 C 204,27 204,42 204,58 C 204,67 201,76 193,76 C 185,77 178,69 178,59 C 178,49 182,41 189,40 C 196,38 203,44 204,53" stroke="#6b1a10" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 204,58 C 204,65 204,71 204,77" stroke="#6b1a10" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M 220,17 C 219,17 218,18 218,23 L 217,69 C 217,74 219,75 222,75 C 232,75 244,72 250,63 C 256,54 256,35 250,26 C 244,17 233,16 222,16 Z" stroke="#6b1a10" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="259" cy="74" r="2.8" fill="#6b1a10" stroke="none"/>
+              <path d="M 6,86 C 50,82 110,80 170,83 C 230,86 275,83 305,80" stroke="#C0392B" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.45"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="corazon-final">❤️</span>
+
+  <!-- ======= DIVISOR ======= -->
+  <div class="divisor-cumple">
+    <span>✦ feliz cumpleaños ✦</span>
+  </div>
+
+  <!-- ======= CARTA DE CUMPLEAÑOS ======= -->
+  <div class="cumple-wrapper">
+    <div class="cinta-dorada"></div>
+
+    <div class="hoja-cumple">
+      <div class="lineas-cumple"></div>
+      <div class="fecha-hoja-cumple">2026 🎂</div>
+
+      <div class="contenido-cumple">
+        <div class="saludo-cumple">Hoy es tu día, Nasly.</div>
+
+        <p class="parrafo-cumple">
+          Y no lo digo como si fuera un dato del calendario. Lo digo porque hoy el mundo tiene una razón más para existir que ayer — y esa razón tiene tu cara, tu risa, tu manera de ser.
+        </p>
+
+        <div class="sep-oro">· · ·</div>
+
+        <p class="parrafo-cumple">
+          Hace poco me dijiste algo que me quedó dando vueltas: <em>"Gracias. Me siento amada."</em> Y yo pensé — ojalá supieras. Ojalá pudieras verte desde donde yo te veo. Porque tú siempre te has sentido así, eso que llamaste "sentirte amada" — solo que no siempre lo aceptas. Y no te culpo. A veces las cosas más reales son las más difíciles de recibir.
+        </p>
+
+        <div class="sep-oro">· · ·</div>
+
+        <p class="parrafo-cumple">
+          Sé que eres distante. Lo sé, y no te lo reprocho — es simplemente como eres, con todo lo que eso implica. Pero aunque así lo seas, aunque a veces parezca que estás en otro lado, hay algo que quiero que sepas: yo siempre estoy pensando en ti. Que siempre te estoy deseando lo mejor. Que espero, en silencio y con toda honestidad, que <strong>te sientas querida conmigo</strong>. No porque lo diga — sino porque lo es.
+        </p>
+
+        <div class="sep-oro">· · ·</div>
+
+        <p class="parrafo-cumple">
+          En este cumpleaños no te pido que creas en grandes promesas. Solo te pido que guardes esto: que hay alguien que, a su manera torpe y a veces difícil de entender, te quiere de verdad. Que tu existencia no pasa desapercibida. Que cada pequeña cosa que eres — la que sonríe en una foto echada, la que dice "gracias" con esa simpleza que desbarata — vale más de lo que imaginas.
+        </p>
+
+        <div class="sep-oro">· · ·</div>
+
+        <p class="parrafo-cumple">
+          Que este año que empieza hoy te traiga todo lo que mereces. Y mereces mucho, Nasly. Mucho más de lo que te permites a ti misma desear.
+        </p>
+
+        <p class="parrafo-cumple">
+          <strong>Feliz cumpleaños. Con todo.</strong>
+        </p>
+
+        <div class="firma-bloque-cumple">
+          <div class="firma-texto-cumple">siempre,</div>
+          <div class="firma-svg-cumple-wrapper">
+            <svg class="firma-svg-cumple" viewBox="0 0 310 95" xmlns="http://www.w3.org/2000/svg" aria-label="Edward D.">
+              <path d="M 10,16 C 10,16 9,17 9,24 L 9,68 C 9,73 10,74 13,74" stroke="#7a5000" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 9,17 C 14,15 28,15 43,16" stroke="#7a5000" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M 9,46 C 16,44 30,44 38,45" stroke="#7a5000" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M 9,73 C 16,72 32,72 45,73" stroke="#7a5000" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M 80,13 C 80,24 80,38 80,55 C 80,65 77,75 69,75 C 61,76 54,68 54,58 C 54,48 58,41 65,40 C 72,38 79,43 80,52" stroke="#7a5000" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 80,55 C 80,63 80,70 80,77" stroke="#7a5000" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M 91,42 C 92,52 94,62 96,69 C 98,76 100,75 102,69 C 104,63 106,53 108,46 C 110,53 112,63 114,69 C 116,76 118,75 120,69 C 122,62 125,48 126,42" stroke="#7a5000" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 143,52 C 139,44 131,43 129,50 C 127,57 129,66 133,71 C 137,76 144,73 145,66 L 146,48 C 146,56 146,68 147,76" stroke="#7a5000" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 154,52 L 153,76" stroke="#7a5000" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M 153,57 C 156,48 163,46 170,47" stroke="#7a5000" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M 204,15 C 204,27 204,42 204,58 C 204,67 201,76 193,76 C 185,77 178,69 178,59 C 178,49 182,41 189,40 C 196,38 203,44 204,53" stroke="#7a5000" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 204,58 C 204,65 204,71 204,77" stroke="#7a5000" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M 220,17 C 219,17 218,18 218,23 L 217,69 C 217,74 219,75 222,75 C 232,75 244,72 250,63 C 256,54 256,35 250,26 C 244,17 233,16 222,16 Z" stroke="#7a5000" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="259" cy="74" r="2.8" fill="#7a5000" stroke="none"/>
+              <path d="M 6,86 C 50,82 110,80 170,83 C 230,86 275,83 305,80" stroke="#D4A017" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.45"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="corazon-final-cumple">🎂</span>
+
+  <!-- ======= COPYRIGHT ======= -->
+  <div class="copyright">
+    <div class="copyright-linea"></div>
+    <div class="copyright-texto">© 2026 — todos los derechos reservados</div>
+  </div>
+
+</div>
+
+<script>
+  // PARTÍCULAS
+  const contenedor = document.getElementById('particulas');
+  const colores = ['#C0392B','#E74C3C','#D4A017','#F0C040','#8B0000','#FF6B6B','#FFD700'];
+
+  for (let i = 0; i < 38; i++) {
+    const el = document.createElement('div');
+    el.className = 'p';
+    const size = Math.random() * 8 + 3;
+    el.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${colores[Math.floor(Math.random() * colores.length)]};
+      animation-duration: ${Math.random() * 12 + 8}s;
+      animation-delay: ${Math.random() * 10}s;
+      opacity: 0;
+      border-radius: ${Math.random() > 0.4 ? '50%' : '2px'};
+      transform: rotate(${Math.random()*360}deg);
+    `;
+    contenedor.appendChild(el);
+  }
+
+  // SCROLL REVEAL para ambas secciones
+  const todosLosParrafos = document.querySelectorAll('.parrafo, .parrafo-cumple');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  todosLosParrafos.forEach((p, i) => {
+    setTimeout(() => {
+      observer.observe(p);
+    }, i * 80);
+  });
+
+  setTimeout(() => {
+    todosLosParrafos.forEach(p => {
+      const rect = p.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        p.classList.add('visible');
+      }
+    });
+  }, 800);
+</script>
+
+</body>
+</html>
